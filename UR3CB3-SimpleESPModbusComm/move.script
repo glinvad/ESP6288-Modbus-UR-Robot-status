@@ -1,0 +1,46 @@
+def move():
+  set_safety_mode_transition_hardness(1)
+  set_tcp(p[0.0,0.0,0.0,0.0,0.0,0.0])
+  set_payload(0.0)
+  modbus_add_signal("192.168.1.31", 255, 10, 3, "register0", False)
+  modbus_set_signal_update_frequency("register0", 10)
+  modbus_set_runstate_dependent_choice("register0",0)
+  set_gravity([0.0, 0.0, 9.82])
+  step_count_ed14d48e_309b_4cfc_b28a_3c21bf92bde7 = 0.0
+  thread Step_Counter_Thread_43b53891_4f3d_4c4e_b693_c9b611e8ab4a():
+    while (True):
+      step_count_ed14d48e_309b_4cfc_b28a_3c21bf92bde7 = step_count_ed14d48e_309b_4cfc_b28a_3c21bf92bde7 + 1.0
+      sync()
+    end
+  end
+  run Step_Counter_Thread_43b53891_4f3d_4c4e_b693_c9b611e8ab4a()
+  set_tool_voltage(0)
+  set_standard_analog_input_domain(0, 1)
+  set_standard_analog_input_domain(1, 1)
+  set_tool_analog_input_domain(0, 1)
+  set_tool_analog_input_domain(1, 1)
+  set_analog_outputdomain(0, 0)
+  set_analog_outputdomain(1, 0)
+  set_input_actions_to_default()
+  global Plane_1=p[-0.11842706929373131,-0.2680453534302138,0.15727817303169656,1.0318122536443533E-7,-6.427218242495043E-8,-1.5707964476093428]
+  $ 1 "BeforeStart"
+  $ 2 "Set register0=0"
+  modbus_set_output_register("register0", 0)
+  while (True):
+    $ 3 "Robot Program"
+    $ 4 "MoveJ"
+    $ 5 "Waypoint_1" "breakAfter"
+    movej(get_inverse_kin(p[-.118696213395, -.298509083629, .192299434396, -.001220876243, 3.116276605970, .038891736442], qnear=[-1.5985882917987269, -1.7337215582477015, -1.9829414526568812, -1.0213854948626917, 1.5951541662216187, -0.02888805070985967]), a=1.3962634015954636, v=1.0471975511965976)
+    $ 6 "Set register0=101"
+    modbus_set_output_register("register0", 101)
+    $ 7 "Set DO[0]=Off"
+    set_standard_digital_out(0, False)
+    $ 8 "MoveJ"
+    $ 9 "Waypoint_2" "breakAfter"
+    movej(get_inverse_kin(p[.045633574966, -.332069369354, .297097765272, -.159332183271, 3.113475864931, .040840126914], qnear=[-1.1008127371417444, -1.652177635823385, -1.557835880910055, -1.5166433493243616, 1.6031705141067505, 0.36749178171157837]), a=1.3962634015954636, v=1.0471975511965976)
+    $ 10 "Set register0=202"
+    modbus_set_output_register("register0", 202)
+    $ 11 "Set DO[0]=On"
+    set_standard_digital_out(0, True)
+  end
+end

@@ -1,0 +1,12 @@
+ Program
+   BeforeStart
+     Set register0=0
+   Robot Program
+     MoveJ
+       Waypoint_1
+     Set register0=101
+     Set DO[0]=Off
+     MoveJ
+       Waypoint_2
+     Set register0=202
+     Set DO[0]=On
